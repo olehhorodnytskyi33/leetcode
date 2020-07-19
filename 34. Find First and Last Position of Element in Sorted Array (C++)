@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        
+        int n = nums.size();
+        
+        if(n == 0)
+            return vector<int>{-1,-1};
+        
+        int first = -1;
+        int second = -1;
+        int l = 0;
+        int r = n - 1;
+        int m = 0;
+        
+        while(l < (r-1))
+        {
+            m = (l + r) / 2;
+            
+            if(nums[m] == target)
+                r = m - 1;
+            else if(nums[m] < target)
+                l = m;
+            else
+                r = m;
+        }
+        
+        if((l >= 0) && (l < n) && (nums[l] == target))
+            first = l;
+        else if((r >= 0) && (r < n) && (nums[r] == target))
+            first = r;
+        else if((r+1 >= 0) && (r+1 < n) && (nums[r+1] == target))
+            first = r + 1;
+        
+        l = 0;
+        r = n - 1;
+        m = 0;
+        
+        while(l < (r-1))
+        {
+            m = (l + r) / 2;
+            
+            if(nums[m] == target)
+                l = m + 1;
+            else if(nums[m] < target)
+                l = m;
+            else
+                r = m;
+        }
+        
+        if((r >= 0) && (r < n) && (nums[r] == target))
+            second = r;
+        else if((l >= 0) && (l < n) && (nums[l] == target))
+            second = l;
+        else if((l-1 >= 0) && (l-1 < n) && (nums[l-1] == target))
+            second = l-1;
+        
+        return vector<int>{first, second};
+    }
+};
