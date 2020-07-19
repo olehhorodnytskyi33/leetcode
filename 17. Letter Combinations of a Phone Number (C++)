@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        
+        vector<string> ans;
+        vector<string> cur{""};
+        map<char,string> mapping;
+        
+        mapping['2'] = "abc";
+        mapping['3'] = "def";
+        mapping['4'] = "ghi";
+        mapping['5'] = "jkl";
+        mapping['6'] = "mno";
+        mapping['7'] = "pqrs";
+        mapping['8'] = "tuv";
+        mapping['9'] = "wxyz";
+        
+        int n = digits.size();
+        
+        if(n == 0)
+        {
+            vector<string> t{};
+            return t;
+        }
+            
+        for(int i = 0; i < n; i++)
+        {
+            vector<string> new_cur;
+            for(int j = 0; j < cur.size(); j++)
+            {
+                
+                for(int jj = 0; jj < mapping[digits[i]].size(); jj++)
+                    new_cur.push_back(cur[j] + mapping[digits[i]][jj]);
+                       
+            }
+            cur = new_cur; 
+        }
+        
+        return cur;
+        
+    }
+};
