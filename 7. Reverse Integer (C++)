@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int reverse(int x) {
+        
+        double ans = 0;
+        double sign = (x < 0) ? -1 : 1;
+        int x2 = abs(x);
+        
+        while(x2 >= 1.0)
+        {
+            int rem = x2 % 10;
+            x2 = x2 / 10;
+            ans = ans * 10 + rem;
+        }
+        
+        if(ans > INT_MAX)
+            return 0;
+        
+        int ans2 = ans * sign;
+        
+        return ans2;
+    }
+};
