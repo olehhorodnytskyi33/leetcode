@@ -1,0 +1,44 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        n = len(nums)
+        l = 0
+        r = n - 1
+        
+        if n == 0:
+            return -1
+        
+        while l < (r - 1):
+            
+            m = (l + r) // 2
+            
+            val1 = nums[l]
+            val2 = nums[m]
+            val3 = nums[r]
+            
+            if val1 < val2 and target <= val2 and target >= val1:
+                
+                r = m
+                
+            elif val2 < val3 and target <= val3 and target >= val2:
+                
+                l = m
+                
+            elif val1 < val2:
+                
+                l = m
+                
+            else:
+                
+                r = m
+                
+                
+        
+        if l < n and nums[l] == target:
+            return l
+        elif (l+1) < n and nums[l+1] == target:
+            return l+1
+        elif r < n and nums[r] == target:
+            return r
+        
+        return -1
