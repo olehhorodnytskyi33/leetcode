@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+        if(height.size() == 0)
+            return 0;
+        
+        int first = 0;
+        int second = height.size() - 1;
+        int ans = min(height[first], height[second]) * (height.size() - 1);
+        
+        while(first < second)
+        {
+            if (height[first] <= height[second])
+                first += 1;
+            else
+                second -= 1;
+            
+            int new_ans = min(height[first], height[second]) * (second - first);
+            
+            if(new_ans > ans)
+                ans = new_ans;
+        }
+        
+        return ans;
+    }
+};
