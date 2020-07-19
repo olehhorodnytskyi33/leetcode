@@ -1,0 +1,45 @@
+import numpy as np
+
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        
+        n = len(nums)
+        l = 0
+        r = n - 1
+        m = 0
+        
+        if n == 1:
+            
+            return nums[0]
+        
+        if n == 2:
+            
+            return min(nums[0], nums[1])
+        
+        ans = np.inf
+        
+        while l <= r:
+            
+            m = (l + r) // 2
+            
+            val1 = nums[l]
+            val2 = nums[m] 
+            val3 = nums[r]
+            
+            print(val1, val2, val3, l , m, r)
+            
+            if val2 < val3:
+                
+                ans = min(ans, nums[m])
+                r = m - 1
+                
+            else:
+                
+                ans = min(ans, nums[m])
+                l = m + 1
+                    
+        return ans
