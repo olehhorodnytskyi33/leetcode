@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        
+        map<char,int> counter;
+        char start = 'a';
+        
+        for(int i = 0; i < 26; i++)
+        {
+            counter[start] = 0;
+            start++;
+        }
+        
+        int first_pointer = 0;
+        int second_pointer = 0;
+        int ans = 0;
+        int n = s.size();
+        
+        for(int j = 0; j < n; j++)
+        {
+            
+            if(counter[s[j]] == 0)
+            {
+                ans = (j - first_pointer + 1) > ans ? (j - first_pointer + 1) : ans;
+                counter[s[j]]++;
+            }
+            else
+            {
+                j--;
+                counter[s[first_pointer]]--;
+                first_pointer++;
+            }
+            
+        }
+        
+        return ans;
+    }
+};
