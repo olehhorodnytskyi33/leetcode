@@ -1,0 +1,79 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        
+        n = len(nums)
+        
+        if n == 0:
+            return [-1,-1]
+        
+        l = 0
+        r = n - 1
+        first = -1
+        second = -1
+        
+        while l < (r - 1):
+            
+            m = (l + r) // 2
+            
+            if nums[m] == target:
+                
+                r = m - 1
+                
+            elif nums[m] < target:
+                
+                l = m
+                
+            else:
+                
+                r = m
+            
+          
+        if l >= 0 and l < n and nums[l] == target:
+            
+            second = l
+            
+        elif r >= 0 and r < n and nums[r] == target:
+            
+            second = r
+
+        elif (r+1) >= 0 and (r+1) < n and nums[(r+1)] == target:
+            
+            second = r+1
+            
+            
+        l = 0
+        r = n - 1
+        
+        while l < (r - 1):
+            
+            m = (l + r) // 2
+            
+            if nums[m] == target:
+                
+                l = m + 1
+                
+            elif nums[m] < target:
+                
+                l = m
+                
+            else:
+                
+                r = m
+                
+        
+        if r >= 0 and r < n and nums[r] == target:
+            
+            first = r
+        
+        elif l >= 0 and l < n and nums[l] == target:
+            
+            first = l
+        
+        elif (l - 1) >= 0 and (l-1) < n and nums[l-1] == target:
+            
+            first = l - 1
+                
+
+            
+            
+        return [second, first]
