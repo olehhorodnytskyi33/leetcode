@@ -1,0 +1,50 @@
+from copy import copy
+
+class Solution(object):
+    
+    def __init__(self):
+        
+        self.ans_hashes = set()
+        self.ans = []
+        self.nums = []
+        self.target = 0
+        self.n = 0
+    
+    
+    def rec(self, cur_sum, cur_list):
+        
+        if cur_sum > self.target:
+            return
+    
+        if cur_sum == self.target:
+            
+            cur_hash = hash(tuple(sorted(cur_list)))
+            
+            if cur_hash not in self.ans_hashes:
+                
+                self.ans_hashes.add(cur_hash)
+                self.ans.append(sorted(cur_list))
+                
+            return
+    
+        for i in range(self.n):
+            
+            new_cur_list = copy(cur_list)
+            new_cur_list.append(self.nums[i])
+            self.rec(cur_sum + self.nums[i], new_cur_list)
+            
+    
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        
+        self.target = target
+        self.nums = candidates
+        self.n = len(self.nums)
+        
+        self.rec(0, [])
+        
+        return self.ans
