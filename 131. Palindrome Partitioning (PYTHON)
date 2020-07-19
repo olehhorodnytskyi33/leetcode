@@ -1,0 +1,57 @@
+from string import ascii_lowercase
+
+class Solution(object):
+    
+    def __init__(self):
+        
+        self.ans = []
+        self.hashes = set()
+        self.dPal = {}
+        
+        for c in ascii_lowercase:
+            self.dPal[c] = 1
+            self.dPal[c+c] = 1
+        
+        self.dPal[""] = 1
+        
+        
+    def recursion(self, s, cur_part):
+        
+    
+        if len(s) == 1:
+            
+            cur_hash = hash(tuple(cur_part))
+            
+            if cur_hash not in self.hashes:
+                
+                self.hashes.add(cur_hash)
+                self.ans.append(cur_part)
+                
+            return
+        
+    
+        for i in range(1, len(s)):
+                
+            ss = s[:i]
+                
+            if len(ss) > 2:
+                
+                if (ss[0] == ss[-1]) and (ss[1:-1] in self.dPal.keys()):
+                    
+                    self.dPal[ss] = 1
+                
+            if s[:i] in self.dPal.keys():
+                
+                self.recursion(s[i:], cur_part + [s[:i]])
+                    
+        
+    
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        s = s + "#"
+        self.recursion(s, [])
+        
+        return self.ans
