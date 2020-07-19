@@ -1,0 +1,45 @@
+class Solution(object):
+    
+    def __init__(self):
+        
+        self.pf = []
+    
+    def calc_pf(self, s):
+        
+        n = len(s)
+        pf = [0] * n
+        
+        for i in range(1, n):
+            
+            j = pf[i - 1]
+            
+            while j > 0 and s[j] != s[i]:
+                
+                j = pf[j - 1]
+                
+            if s[j] == s[i]:
+                j += 1
+    
+            pf[i] = j
+        
+        return pf
+    
+        
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        
+        t = needle + "#" + haystack
+        
+        pf = self.calc_pf(t)
+        
+        for i in range(len(needle), len(t)):
+            
+            if pf[i] == len(needle):
+                
+                return i - 2 * len(needle)
+        
+        return -1
