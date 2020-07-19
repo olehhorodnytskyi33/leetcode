@@ -1,0 +1,39 @@
+import numpy as np
+
+class Solution(object):
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int"""
+        
+        n = len(s)
+        
+        if n < 2:
+            return 0
+        
+        dp = [0] * n
+        
+        if s[0] == '(' and s[1] == ')':
+            
+            dp[1] = 2
+            
+        for i in range(2, n):
+            
+            priv_idx = i - 1 - dp[i - 1]
+            
+            if priv_idx >= 0:
+                
+                if s[i] == ')' and s[priv_idx] == '(':
+                    
+                    dp[i] = dp[i-1] + 2
+                    
+                    if priv_idx > 0:
+                        
+                        dp[i] += dp[priv_idx - 1]
+                    
+            if s[i] == ')' and s[i-1] == '(':
+                
+                dp[i] = max(dp[i], dp[i-2] + 2)
+                
+        
+        return max(dp)
