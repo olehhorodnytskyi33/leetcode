@@ -1,0 +1,33 @@
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        """
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
+        """
+        
+        n = len(gas)
+        
+        for i in range(n):
+            
+            gas[i] -= cost[i]
+        
+        gas.extend(gas)
+        
+        for i in range(n):
+            
+            cur_sum = 0
+            
+            for j in range(n):
+                
+                cur_sum += gas[i + j]
+                
+                if cur_sum < 0:
+                    
+                    break
+                    
+                if j == n - 1:
+                    
+                    return i
+                
+        return -1
