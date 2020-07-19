@@ -1,0 +1,57 @@
+import numpy as np
+
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+
+        nums = sorted(nums)
+        diff = np.inf
+        n = len(nums)
+
+        counter = {}
+        nums_new = []
+
+        for num in nums:
+
+            if num not in counter.keys():
+                counter[num] = 1
+            else:
+                counter[num] += 1
+
+            if num == 0 and counter[num] > 3:
+                continue
+
+            nums_new.append(num)
+
+        nums_new = sorted(nums_new)
+        n = len(nums_new)
+        ans = 0
+        cur_abs = np.inf
+
+        for i in range(n):
+
+            first = i + 1
+            second = n - 1
+
+            while first < second:
+
+                cur_sum = nums_new[i] + nums_new[first] + nums_new[second]
+
+                if cur_sum > target:
+                    second -= 1
+                elif cur_sum < target:
+                    first += 1
+                else:
+                    return target
+                    
+                abs_diff = abs(target - cur_sum)
+                
+                if abs_diff < cur_abs:
+                    
+                    cur_abs = abs_diff
+                    ans = cur_sum
+
+        return ans
