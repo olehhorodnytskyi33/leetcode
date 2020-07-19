@@ -1,0 +1,44 @@
+import numpy as np
+
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        
+        n = len(strs)
+        min_len = np.inf
+        small_str = ""
+        
+        for i in range(n):
+            
+            min_len = min(min_len, len(strs[i]))
+            
+            if min_len == len(strs[i]):
+                
+                small_str = strs[i]
+                
+        ans = small_str
+        
+        for i in range(n):
+            
+            lcp = 0
+            
+            for j in range(min_len):
+                
+                if strs[i][j] == small_str[j]:
+                    
+                    lcp += 1
+                
+                else:
+                    
+                    break
+                    
+            if lcp < len(ans):
+                
+                ans = strs[i][:lcp]
+                
+        return ans
+                
+                
